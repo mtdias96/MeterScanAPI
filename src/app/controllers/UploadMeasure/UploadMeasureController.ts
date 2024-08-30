@@ -29,9 +29,9 @@ export class UploadMeasureController {
   }
 
   async handle({ body }: IRequest): Promise<IResponse> {
+    const measureUuid = uuidv4();
     try {
-      const { image, customer_code, measure_datetime, measure_type } = uploadSchema.parse(body);
-      const measureUuid = uuidv4();
+      const { image } = uploadSchema.parse(body);
 
       const imageData = image.split(',')[1];
       if (!imageData) {
