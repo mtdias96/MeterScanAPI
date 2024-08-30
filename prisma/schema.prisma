@@ -1,3 +1,4 @@
+// schema.prisma
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,25 +9,24 @@ datasource db {
 }
 
 model Customer {
-  id              String    @id @default(uuid())
-  customer_code   String    @unique
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  measures        Measure[]
+  id            String    @id @default(uuid())
+  customer_code String    @unique
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+    measureDatetime DateTime
+  imageUrl        String
 }
 
 model Measure {
   id              String    @id @default(uuid())
-  customer        Customer  @relation(fields: [customerId], references: [id])
   customerId      String
-  measure_datetime DateTime
-  measure_type    String
-  image_base64    String
-  guid            String    @unique
-  image_link      String
-  value           Float
+  measureDatetime DateTime
+  measureType     String
+  measureValue    Float
+  imageUrl        String
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 
-  @@index([customerId, measure_datetime, measure_type], name: "measure_month_type_idx")
+
+  @@index([customerId, measureDatetime, measureType], name: "measure_index")
 }
